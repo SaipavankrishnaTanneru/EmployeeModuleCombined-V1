@@ -1,0 +1,57 @@
+/* CampusFlowMiddle.module.css */
+
+.heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #101014;
+  margin-bottom: 12px;
+}
+
+/* Outer container that provides the light grey panel background */
+.CampusContainer {
+  display: flex;
+  flex-direction: column;
+  /* gap: 12px; */
+
+  /* panel look like your screenshot */
+  background: #f6f6f7;       /* soft grey background */
+  border-radius: 10px;
+  padding: 10px 10px 10px 0px;
+  /* border: 1px solid #ececec; */
+}
+
+/* Horizontal scroll wrapper (keeps scroll behavior, hides native scrollbar) */
+.scrollWrapper {
+  overflow-x: auto;
+  width: 100%;
+  /* padding: 6px 4px; */
+
+  /* hide scrollbar visuals */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.scrollWrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
+}
+
+/* The white inner strip that holds cards (rounded + slight shadow) */
+.EmployeeCardContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: stretch;
+
+  background: #EAEAEA;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 1px 6px rgba(16, 16, 20, 0.04);
+  min-width: max-content; /* allow horizontal scroll */
+}
+
+/* small responsive tweak for narrow screens */
+@media (max-width: 900px) {
+  .EmployeeCardContainer > * {
+    flex: 0 0 280px;
+    min-width: 260px;
+  }
+}

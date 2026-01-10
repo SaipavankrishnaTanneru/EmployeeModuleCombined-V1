@@ -1,0 +1,175 @@
+.wrapper {
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  
+  /* Slightly increased to better accommodate illustration + text */
+  min-height: 240px;          /* ← was 200px → feels less cramped when empty */
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;                  /* ← reduced from 20px for more compact feel */
+  
+  /* Helps when there are few cards */
+  min-height: 180px;          /* ← matches your compact intention */
+}
+
+/* Empty state container - already good */
+.noData {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  text-align: center;
+  gap: 8px;                /* space between illustration and text */
+}
+
+/* Wrapper for the two-line text */
+.noDataText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;                /* small space between the two lines */
+}
+
+/* First line - regular text */
+.noDataLine {
+  font-size: 14px;
+  font-weight: 700;
+  color: #6B6B6B;          /* soft grey */
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Second line - highlighted department name */
+.departmentHighlight {
+  font-size: 14px;
+  font-weight: 700;
+  color: #3425FF;          /* your primary purple/blue from Figma */
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Optional: make it pop more */
+.departmentHighlight::after {
+  content: " Department";
+  font-weight: 500;
+  color: #6b7280;          /* lighter color for "Department" */
+}
+
+
+/* Footer - only appears when there are employees */
+.footer {
+  margin-top: 16px;           /* ← reduced from 24px to save vertical space */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;            /* ← slightly smaller for compact look */
+  color: #64748b;
+}
+
+.entryInfo strong {
+  color: #1e293b;
+}
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pageInfo {
+  font-weight: 500;
+  color: #475569;
+  font-size: 12px;
+}
+
+.pagination {
+  display: flex;
+  gap: 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.prev,
+.next {
+  padding: 5px 12px;         /* ← slightly smaller buttons */
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.prev {
+  border: 1px solid #d1d5db;
+  border-right: none;
+  background: #ffffff;
+  color: #374151;
+  border-radius: 6px 0 0 6px;
+}
+
+.prev:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+
+.prev:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+  background: #f9fafb;
+}
+
+.next {
+  background: #3425ff;
+  color: white;
+  border: none;
+  border-radius: 0 6px 6px 0;
+}
+
+.next:hover:not(:disabled) {
+  background: #2a1ee6;
+}
+
+.next:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+
+/* Skeleton - keep compact */
+.skeletonCard {
+  height: 90px;              /* ← your original compact height */
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .cardGrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .cardGrid { grid-template-columns: repeat(2, 1fr); }
+  .gap { gap: 12px; }
+}
+@media (max-width: 600px) {
+  .cardGrid { grid-template-columns: 1fr; }
+  .footer { 
+    flex-direction: column; 
+    gap: 10px; 
+    text-align: center; 
+  }
+  .paginationContainer {
+    justify-content: center;
+  }
+}

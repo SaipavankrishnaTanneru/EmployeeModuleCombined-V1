@@ -1,0 +1,146 @@
+/* ... Previous Table Styles remain the same ... */
+
+.tableContainer {
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tableContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  border: 1px solid #E6E4F0;
+  border-radius: 6px;
+  min-width: max-content;
+}
+
+.table th, .table td {
+  text-align: left;
+  padding: 10px 30px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #252C32;
+  font-weight: 400;
+}
+
+.table th {
+  color: #84919A;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.table tbody tr:nth-child(odd) { background-color: #F9FAFB; }
+.table tbody tr:nth-child(even) { background-color: #FFFFFF; }
+
+/* Status Badges */
+.statusBadge { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+.statusCompleted { background: #0E9519; color: #FFFFFF; }
+.statusIncomplete { background: #950E0E; color: #FFFFFF; }
+.statusPendingWithCO { background: #61660D; color: #FFFFFF; }
+.statusPendingWithDO { background: #23819B; color: #FFFFFF; }
+.statusSkillTestApproval { background: #250980; color: #FFFFFF; }
+.statusSkillTestApproved { background: #398009; color: #FFFFFF; }
+.statusRejected { background: #950E7C; color: #FFFFFF; }
+.statusLeft { background: #000000; color: #FFFFFF; }
+.statusDefault { background: #F9FAFB; border: 1px solid #DDE2E4; color: #252C32; }
+
+/* Header Icons */
+.sortableHeader { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.sortIcons { display: flex; flex-direction: column; margin-left: 2px; line-height: 1; }
+.arrowUp, .arrowDown { width: 8px; height: 8px; cursor: pointer; opacity: 0.7; transition: opacity 0.2s ease; }
+.arrowUp:hover, .arrowDown:hover { opacity: 1; }
+.arrowIcon { cursor: pointer; width: 17px; height: 13px; }
+
+/* 🔴 NEW PAGINATION STYLES (MATCHING IMAGE) 🔴 */
+
+.paginationFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+
+  background-color: #F9FAFB; /* Light gray background like image */
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #E6E4F0;
+  border-top: none;
+}
+
+.showingText {
+  font-size: 13px;
+  color: #6D7D93; /* Muted gray text */
+  font-weight: 400;
+}
+
+.showingText b {
+  color: #252C32; /* Darker color for numbers */
+  font-weight: 600;
+}
+
+.paginationRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pageCountText {
+  font-size: 13px;
+  color: #252C32;
+  font-weight: 500;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px; /* Space between buttons */
+}
+
+.prevBtn, .nextBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 60px;
+}
+
+/* "Prev" Button: Light Background, Blue/Purple Text */
+.prevBtn {
+  background-color: #ECEBFF; /* Very light purple/gray */
+  color: #3425FF;
+  border: none;
+}
+
+.prevBtn:hover:not(:disabled) {
+  background-color: #DBDAFF;
+}
+
+.prevBtn:disabled {
+  background-color: #F3F3F3;
+  color: #C0C0C0;
+  cursor: not-allowed;
+}
+
+/* "Next" Button: Blue Background, White Text */
+.nextBtn {
+  background-color: #3425FF;
+  color: #FFFFFF;
+  border: none;
+}
+
+.nextBtn:hover:not(:disabled) {
+  background-color: #2619D1;
+}
+
+.nextBtn:disabled {
+  background-color: #A0A0FF;
+  cursor: not-allowed;
+}

@@ -1,0 +1,123 @@
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  width: 319px;
+  height: 198px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border-right: 7px solid #6bbf3d;
+
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+}
+
+/* TOP */
+.top {
+  display: flex;
+  gap: 14px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+}
+
+.empId {
+  font-size: 12px;
+  color: #777;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 4px 0;
+}
+
+.meta {
+  font-size: 12px;
+  color: #010101;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  gap: 6px;
+}
+
+.genderIcon {
+  color: #2d4cff;
+  font-size: 14px;
+}
+
+.dot {
+  margin: 0 4px;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: #e5e5e5;
+  margin: 12px 0;
+}
+
+/* BOTTOM */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.badges {
+  display: flex;
+  gap: 10px;
+}
+
+.designation {
+  background: #2d4cff;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: 500;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.designationIcon {
+  width: 14px;
+  height: 14px;
+}
+
+
+.subject {
+  color: #2f7d1f;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 16px;
+border: 1px solid #5C9E1F;
+background: #F8FFF2;
+box-shadow: 0 0 5.3px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.iconBtn {
+  background: #fff;
+  
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+  cursor: pointer;
+}

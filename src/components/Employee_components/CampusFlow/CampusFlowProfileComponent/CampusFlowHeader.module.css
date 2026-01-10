@@ -1,0 +1,77 @@
+.employeeprofileContainer{
+  display: flex;
+  flex-direction: row;
+  gap:18px;
+  width:550px;
+}
+
+.employeeProfile {
+  height: 190px;
+  width: 200px;
+  overflow: hidden;        /* 🔑 prevents overflow */
+  border-radius: 9px;      /* optional, matches image */
+}
+
+.emp_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* 🔑 makes image fit perfectly */
+  display: block;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
+
+.infoSection .name{
+  font-size: 16px;
+  font-weight: 700;
+  width:100%;
+}
+
+.empId span {
+  font-weight: 600;
+  color: #333;
+}
+.icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.details {
+  display: flex;        
+  align-items: center;  
+  font-size: 12px;
+  font-weight: 600;
+  gap: 10px;
+}
+
+.detail {
+  display: flex;
+  align-items: center; /* Keeps icon and text on the same horizontal line */
+  white-space: nowrap; /* Prevents text from wrapping within the segment */
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.designation {
+  background-color: #C7C3FF;
+  font-size: 13px;
+  color:#3425FF;
+  border: 2px solid #3425FF;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.location{
+    font-size: 10px;
+    color:#626262;
+    font-weight: 600;
+}
