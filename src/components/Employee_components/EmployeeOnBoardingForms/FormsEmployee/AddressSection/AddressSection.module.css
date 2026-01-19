@@ -10,21 +10,21 @@
   align-items: center;
   gap: 15px;
   margin-bottom: 20px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 .section_title {
   margin: 0;
- 
+
   font-weight: 500;
-  
+
   font-size: 14px;
 
   color: #82808F;
 }
 
 .section_divider {
- 
+
   height: 1px;
   border: none;
   background: linear-gradient(90deg, #B6B6B6 0%, rgba(255, 255, 255, 0) 100%);
@@ -45,7 +45,7 @@
     align-items: flex-start;
     gap: 10px;
   }
-  
+
   .section_divider {
     width: 100%;
   }

@@ -40,10 +40,12 @@
 
 /* --- STACKED PILLS LAYOUT --- */
 
+/* --- STACKED PILLS LAYOUT --- */
+
 .filesStackContainer {
   position: relative;
-  /* Fixed height ensures container holds the absolute children */
-  height: 50px; 
+  /* Single row height */
+  height: 50px;
   width: 100%;
   margin-top: 10px;
   margin-bottom: 5px;
@@ -51,40 +53,48 @@
 
 .fileCapsule {
   position: absolute;
-  top: 0;
+  /* top/left handled inline */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
-  background-color: #FFFFFF; /* White background to cover cards behind it */
+  padding: 3px 8px;
+  background-color: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 20px; /* Pill shape */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  
-  height: 40px;
-  /* Width calc leaves room for the View All icon on the right */
-  width: calc(100% - 50px); 
-  max-width: 400px; /* Prevent it from getting too wide on large screens */
-  
-  transition: all 0.2s ease;
-  cursor: pointer; /* Indicates clickable */
+  border-radius: 50px;
+  /* Pill shape */
+
+  height: 42px;
+
+  /* Width for Fan Stack:
+     Capsules need to fit in the container but stack nicely. 
+     If we used full width, the rightmost items would stick out or be hidden.
+     Let's constrain max-width or calculate it.
+  */
+  width: calc(100% - 176px);
+
+  transform-origin: 50% 100%;
+  transform-origin: center center;
+
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 /* Hover Effect */
 .fileCapsule:hover {
   transform: translateY(-2px);
-  z-index: 100 !important; /* Bring hovered card to the very front */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-color: #cbd5e1;
+  border-color: #6366F1;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* --- File Content (Icon + Text) --- */
 .fileContent {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
-  overflow: hidden; /* Ensures text truncates */
+  overflow: hidden;
   margin-right: 8px;
 }
 
@@ -92,17 +102,21 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  background: #F1F5F9;
+  padding: 4px;
+  border-radius: 6px;
 }
 
 .fileIcon {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   object-fit: contain;
 }
 
 .fileName {
   font-size: 13px;
-  color: #1E293B;
+  color: #334155;
+  /* Slate-700 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -114,7 +128,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 6px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,41 +136,57 @@
   transition: background-color 0.2s;
   flex-shrink: 0;
   margin-left: auto;
+  color: #94A3B8;
 }
 
 .removeButton:hover {
-  background-color: #F1F5F9;
+  background-color: #FEE2E2;
+  /* Red-100 */
+  color: #EF4444;
+  /* Red-500 */
 }
 
 .removeButton img {
   width: 10px;
   height: 10px;
-  opacity: 0.6;
+  opacity: 0.8;
+  filter: grayscale(100%);
+  /* Optional if icon is colored */
+}
+
+.removeButton:hover img {
+  filter: none;
 }
 
 /* --- View All Icon (Floating Right) --- */
 .viewAllIcon {
   position: absolute;
   right: 0;
-  top: 4px; /* Align vertically with the capsules */
-  
+  /* Align with the Front card */
+  bottom: 0px;
+  /* Or center vertically relative to the container? */
+  top: 50%;
+  transform: translateY(-50%);
+
   width: 32px;
   height: 32px;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 50%;
-  
+  border-radius: 8px;
+  /* Match capsule radius */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 200; /* Ensure it stays above the stack */
+  z-index: 200;
   transition: all 0.2s;
 }
 
 .viewAllIcon:hover {
   background-color: #F8F9FA;
-  transform: scale(1.05);
+  border-color: #CBD5E1;
 }
 
 /* --- Upload Actions --- */
@@ -166,7 +196,7 @@
   margin-top: 5px;
 }
 
-.uploadButton, 
+.uploadButton,
 .uploadMoreButton {
   display: inline-flex;
   align-items: center;

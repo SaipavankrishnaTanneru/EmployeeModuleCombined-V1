@@ -34,7 +34,7 @@ const CertificateUploadSection = ({ index, formik }) => {
 
   const isSubmitted = item.isSubmittedCertificate || false;
   const certificateFiles = item.certificateFiles || [];
-  
+
   // Get latest 3 files for the stack visual
   const latestFiles = certificateFiles.slice(-3);
 
@@ -47,11 +47,11 @@ const CertificateUploadSection = ({ index, formik }) => {
 
   const handleFileUpload = (e) => {
     const rawFiles = Array.from(e.target.files || []);
-    
+
     if (rawFiles.length > 0) {
       // 🚀 UPLOAD LOGIC: Convert File -> Object with URL
       const uploadedFiles = rawFiles.map(file => mockUpload(file));
-      
+
       const existingFiles = certificateFiles || [];
       setFieldValue(`qualifications.${index}.certificateFiles`, [...existingFiles, ...uploadedFiles]);
     }
@@ -70,7 +70,7 @@ const CertificateUploadSection = ({ index, formik }) => {
   const handlePreviewFile = (file) => {
     // Open the mocked URL
     if (file.url) {
-        window.open(file.url, '_blank');
+      window.open(file.url, '_blank');
     }
   };
 
@@ -98,15 +98,26 @@ const CertificateUploadSection = ({ index, formik }) => {
             <div className={styles.filesStackContainer}>
               {latestFiles.map((file, idx) => {
                 const actualIndex = certificateFiles.length - latestFiles.length + idx;
-                
+
+                // Horizontal Fan Stack Logic (Figma Style)
+                // Items stack left-to-right. Newest is on the right and on top.
+                // Each subsequent item overlaps the previous one, leaving the "tail" (icon) of the previous one visible.
+
+                // Offset: Enough to see the icon (~45px).
+                const leftPos = idx * 45;
+                const zIndex = 10 + idx;
+
                 return (
                   <div
                     key={actualIndex}
                     className={styles.fileCapsule}
                     onClick={() => handlePreviewFile(file)}
                     style={{
-                      left: `${idx * 15}px`,
-                      zIndex: idx + 1
+                      zIndex: zIndex,
+                      left: `${leftPos}px`,
+                      top: '0px',
+                      opacity: 1,
+                      transform: 'none'
                     }}
                     title={file.url}
                   >
@@ -137,10 +148,10 @@ const CertificateUploadSection = ({ index, formik }) => {
                   onClick={() => setShowViewModal(true)}
                   type="button"
                 >
-                   {/* ... svg icon ... */}
-                   <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.25 0.5H1.75C1.41848 0.5 1.10054 0.631696 0.866116 0.866116C0.631696 1.10054 0.5 1.41848 0.5 1.75V9.25C0.5 9.58152 0.631696 9.89946 0.866116 10.1339C1.10054 10.3683 1.41848 10.5 1.75 10.5H9.25C9.58152 10.5 9.89946 10.3683 10.1339 10.1339C10.3683 9.89946 10.5 9.58152 10.5 9.25V6.75M5.5 5.5L10.5 0.5M10.5 0.5V3.625M10.5 0.5H7.375" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
-                   </svg>
+                  {/* ... svg icon ... */}
+                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.25 0.5H1.75C1.41848 0.5 1.10054 0.631696 0.866116 0.866116C0.631696 1.10054 0.5 1.41848 0.5 1.75V9.25C0.5 9.58152 0.631696 9.89946 0.866116 10.1339C1.10054 10.3683 1.41848 10.5 1.75 10.5H9.25C9.58152 10.5 9.89946 10.3683 10.1339 10.1339C10.3683 9.89946 10.5 9.58152 10.5 9.25V6.75M5.5 5.5L10.5 0.5M10.5 0.5V3.625M10.5 0.5H7.375" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </button>
               )}
             </div>

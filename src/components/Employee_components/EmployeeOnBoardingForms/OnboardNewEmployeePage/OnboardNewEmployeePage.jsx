@@ -4,15 +4,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './OnboardNewEmployeePage.module.css';
 import SkillTestForm from '../../EmployeeSkillTest/SkillTestForm';
 import SuccessPage from '../../SuccessPage/SuccessPage'; // <-- 1. Import the new SuccessPage
-import leftarrow from '../../../../assets/Employee_asserts/SkillTest/LeftArrow.svg';
-import rightarrow from '../../../../assets/Employee_asserts/SkillTest/RightArrow.svg';
+// import leftarrow from '../../../../assets/Employee_asserts/SkillTest/LeftArrow.svg';
+// import rightarrow from '../../../../assets/Employee_asserts/SkillTest/RightArrow.svg';
 import Backarrow from '../../../../assets/Employee_asserts/onboarding_status_table/leftarrow.svg';
 
 // This is the header for the *page*
 const PageHeader = () => {
   const navigate = useNavigate();
   // Send user back to the main employee landing page
-  const goBack = () => navigate('/scopes/employee'); 
+  const goBack = () => navigate('/scopes/employee');
 
   return (
     <div className={styles.pageHeader}>
@@ -25,7 +25,7 @@ const PageHeader = () => {
 const OnboardNewEmployeePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const employeeType = location.state?.employeeType;
   const formRef = React.useRef();
 
@@ -60,14 +60,14 @@ const OnboardNewEmployeePage = () => {
   return (
     <div className={styles.pageWrapper}>
       <PageHeader />
-      
-    {isSubmitted ? (
-  <SuccessPage 
-    mode="page"
-    title="Temp Id Generated Successfully"
-    showButtons={false}
-  />
-) : (
+
+      {isSubmitted ? (
+        <SuccessPage
+          mode="page"
+          title="Temp Id Generated Successfully"
+          showButtons={false}
+        />
+      ) : (
 
 
 

@@ -74,44 +74,44 @@ const EmployeeLanding = () => {
     }
   };
 
- const handleSearchSubmit = async () => {
-  const value = searchTerm.trim();
-  if (!value) return;
+  const handleSearchSubmit = async () => {
+    const value = searchTerm.trim();
+    if (!value) return;
 
-  const isNumeric = /^\d+$/.test(value);
+    const isNumeric = /^\d+$/.test(value);
 
-  // 🚫 Name search requires minimum 3 characters
-  if (!isNumeric && value.length < 3) {
-    return; // silently ignore
-  }
-
-  try {
-    const res = await searchEmployee({
-      payrollId: value, // ✅ SAME PARAM ALWAYS
-    });
-
-    setHasSearched(true);
-
-    if (Array.isArray(res.data) && res.data.length > 0) {
-      if (res.data.length === 1) {
-        // 👉 Single employee (empId)
-        setEmpIdResult(res.data[0]);
-        setFilterResults([]);
-      } else {
-        // 👉 Multiple employees (name search)
-        setFilterResults(res.data);
-        setEmpIdResult(null);
-      }
-    } else {
-      setEmpIdResult(null);
-      setFilterResults([]);
-      alert("Employee not found");
+    // 🚫 Name search requires minimum 3 characters
+    if (!isNumeric && value.length < 3) {
+      return; // silently ignore
     }
-  } catch (err) {
-    console.error("Search error:", err);
-    alert("Error searching employee");
-  }
-};
+
+    try {
+      const res = await searchEmployee({
+        payrollId: value, // ✅ SAME PARAM ALWAYS
+      });
+
+      setHasSearched(true);
+
+      if (Array.isArray(res.data) && res.data.length > 0) {
+        if (res.data.length === 1) {
+          // 👉 Single employee (empId)
+          setEmpIdResult(res.data[0]);
+          setFilterResults([]);
+        } else {
+          // 👉 Multiple employees (name search)
+          setFilterResults(res.data);
+          setEmpIdResult(null);
+        }
+      } else {
+        setEmpIdResult(null);
+        setFilterResults([]);
+        alert("Employee not found");
+      }
+    } catch (err) {
+      console.error("Search error:", err);
+      alert("Error searching employee");
+    }
+  };
 
 
   // ---------------------------
@@ -154,16 +154,29 @@ const EmployeeLanding = () => {
   // ---------------------------
   // ADDITIONAL FEATURES
   // ---------------------------
-  const getRolePrefix = () =>
-    user?.roles?.[0]?.toLowerCase() || "do";
+  const getRolePrefix = () => {
+    // 1. Safety check: ensure user and roles exist
+    if (!user || !user.roles || user.roles.length === 0) return "do";
+
+    // 2. Get the first role and lower case it
+    // Result for ['HR', 'DO'] -> "hr"
+    return user.roles[0].toLowerCase();
+  };
 
   const handleSubmitEmployeeType = (employeeType, isSkip) => {
-    const prefix = getRolePrefix();
+    const prefix = getRolePrefix(); // "hr" based on your mock
 
+    // 🔴 CRITICAL: Ensure this path exists in your Route definitions
     if (employeeType === "Teach" && !isSkip) {
-      navigate(`/scopes/employee/${prefix}-employee-onboarding/skilltest`);
+      // Navigates to: /scopes/employee/hr-employee-onboarding/skilltest
+      navigate(`/scopes/employee/${prefix}-employee-onboarding/skilltest`, {
+        state: { employeeType: "Teach" } // Pass state so OnboardNewEmployeePage knows what to render
+      });
     } else {
-      navigate(`/scopes/employee/${prefix}-new-employee-onboarding/basic-info`);
+      // Navigates to: /scopes/employee/hr-new-employee-onboarding/basic-info
+      navigate(`/scopes/employee/${prefix}-new-employee-onboarding/basic-info`, {
+        state: { employeeType: "Non Teach" }
+      });
     }
 
     setShowTypeModal(false);

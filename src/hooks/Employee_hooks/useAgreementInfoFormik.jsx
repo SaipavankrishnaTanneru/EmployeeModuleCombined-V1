@@ -53,7 +53,7 @@
 //           const categoryListRes = await axios.get(
 //             `http://localhost:8080/api/employeeModule/categories/active`
 //           );
-          
+
 //           const categories = categoryListRes.data || [];
 //           const matchedCategory = categories.find(c => c.id === Number(categoryId));
 
@@ -89,7 +89,7 @@
 //       const payload = {
 //         agreementOrgId: Number(values.agreementOrgId) || 0,
 //         agreementType: values.agreementType || "",
-        
+
 //         // 🔴 USE THE DERIVED CATEGORY (From Basic Info)
 //         // If formik has it, use it, otherwise use the state, otherwise empty string
 //         category: values.category || derivedCategory || "string", 
@@ -121,7 +121,7 @@
 //     if (!isDataPopulated && savedData) {
 //       const backendCheques = savedData.cheques || savedData.chequeDetails || [];
 //       const hasCheques = backendCheques.length > 0;
-      
+
 //       const mappedCheques = hasCheques
 //         ? backendCheques.map(chq => ({
 //             chequeNo: chq.chequeNo || "",
@@ -185,6 +185,7 @@ const initialCheque = {
   chequeNo: "",
   chequeBankName: "",
   chequeBankIfscCode: "",
+  documents: {} // Added documents for Cheque
 };
 
 const initialValues = {
@@ -192,6 +193,7 @@ const initialValues = {
   agreementType: "",
   category: "",
   isCheckSubmit: false,
+  documents: {}, // Added documents for Agreement
   chequeDetails: [initialCheque],
 };
 
@@ -213,7 +215,7 @@ export const useAgreementInfoFormik = ({ tempId, onSuccess }) => {
   }, [tempId]);
 
   /* -------------------- DERIVE CATEGORY -------------------- */
-
+  // ... (keeping derive category logic same, can just replace hook content if easier, but chunking is fine)
   const [derivedCategory, setDerivedCategory] = useState("");
 
   useEffect(() => {
@@ -258,14 +260,16 @@ export const useAgreementInfoFormik = ({ tempId, onSuccess }) => {
     validationSchema,
     enableReinitialize: true,
 
+
     onSubmit: async (values) => {
       console.log("🚀 Submitting Agreement Info...", values);
 
-      // ✅ Normalize cheque text fields
+      // ✅ Normalize cheque text fields and include documents
       const formattedCheques = values.chequeDetails.map((chq) => ({
         chequeNo: Number(chq.chequeNo) || 0,
         chequeBankName: toTitleCase(chq.chequeBankName),
         chequeBankIfscCode: chq.chequeBankIfscCode?.toUpperCase() || "",
+        documents: chq.documents || {}
       }));
 
       const payload = {
@@ -279,9 +283,11 @@ export const useAgreementInfoFormik = ({ tempId, onSuccess }) => {
 
         isCheckSubmit: Boolean(values.isCheckSubmit),
         chequeDetails: values.isCheckSubmit ? formattedCheques : [],
+        documents: values.documents || {}, // Include Agreement Documents
         createdBy: hrEmployeeId,
         updatedBy: hrEmployeeId,
       };
+
 
       console.log("📡 Final Payload:", payload);
 
@@ -307,15 +313,15 @@ export const useAgreementInfoFormik = ({ tempId, onSuccess }) => {
 
       const mappedCheques = hasCheques
         ? backendCheques.map((chq) => ({
-            chequeNo: chq.chequeNo || "",
-            chequeBankName:
-              chq.chequeBankName || chq.chequeBank || "",
-            chequeBankIfscCode:
-              chq.chequeBankIfscCode ||
-              chq.chequeIfscCode ||
-              chq.ifscCode ||
-              "",
-          }))
+          chequeNo: chq.chequeNo || "",
+          chequeBankName:
+            chq.chequeBankName || chq.chequeBank || "",
+          chequeBankIfscCode:
+            chq.chequeBankIfscCode ||
+            chq.chequeIfscCode ||
+            chq.ifscCode ||
+            "",
+        }))
         : [initialCheque];
 
       setValues({

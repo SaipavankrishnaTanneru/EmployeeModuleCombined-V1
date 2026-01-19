@@ -21,7 +21,7 @@ const AddressInfoFormNew = forwardRef(({ tempId, onSuccess }, ref) => {
     handleCheckboxChange,
     setFieldTouched,
     submitForm,
-    
+
     // 🟢 CURRENT Address Options
     stateOptions,
     districtOptions,
@@ -36,8 +36,8 @@ const AddressInfoFormNew = forwardRef(({ tempId, onSuccess }, ref) => {
 
   useImperativeHandle(ref, () => ({
     submitForm: () => {
-        console.log("⚡ Parent triggered submitForm via Ref");
-        submitForm();
+      console.log("⚡ Parent triggered submitForm via Ref");
+      submitForm();
     },
   }), [submitForm]);
 
@@ -70,48 +70,50 @@ const AddressInfoFormNew = forwardRef(({ tempId, onSuccess }, ref) => {
 
     <FormikProvider value={formikBag}>
       <FormValidationAlert />
-    <div className={styles.address_form_container}>
-      {/* Current Address Section */}
-      <AddressSection
-        title="Current Address"
-        fields={currentAddressFields} // 👈 Uses Current Config
-        section="currentAddress"
-        values={values.currentAddress}
-        errors={errors.currentAddress || {}}
-        touched={touched.currentAddress || {}}
-        onFieldChange={handleFieldChange}
-        onFieldBlur={handleFieldBlur}
-      />
+      <div className={styles.address_form_container}>
+        {/* Current Address Section */}
 
-      {/* Checkbox Section */}
-      <div className={styles.checkbox_section}>
-        <div className={styles.checkbox_wrapper}>
-          <FormCheckbox
-            name="permanentAddressSame"
-            checked={values.permanentAddressSame}
-            onChange={onSameAddressToggle} 
-          />
-          <span className={styles.checkbox_label}>
-            Permanent Address Same as Current Address
-          </span>
-        </div>
-      </div>
-
-      {/* Permanent Address Section */}
-      {!values.permanentAddressSame && (
         <AddressSection
-          title="Permanent Address"
-          fields={permanentAddressFields} // 👈 Uses Permanent Config
-          section="permanentAddress"
-          values={values.permanentAddress}
-          errors={errors.permanentAddress || {}}
-          touched={touched.permanentAddress || {}}
+          title="Current Address"
+          fields={currentAddressFields} // 👈 Uses Current Config
+          section="currentAddress"
+          values={values.currentAddress}
+          errors={errors.currentAddress || {}}
+          touched={touched.currentAddress || {}}
           onFieldChange={handleFieldChange}
           onFieldBlur={handleFieldBlur}
           showDivider
         />
-      )}
-    </div>
+
+        {/* Checkbox Section */}
+        <div className={styles.checkbox_section}>
+          <div className={styles.checkbox_wrapper}>
+            <FormCheckbox
+              name="permanentAddressSame"
+              checked={values.permanentAddressSame}
+              onChange={onSameAddressToggle}
+            />
+            <span className={styles.checkbox_label}>
+              Permanent Address Same as Current Address
+            </span>
+          </div>
+        </div>
+
+        {/* Permanent Address Section */}
+        {!values.permanentAddressSame && (
+          <AddressSection
+            title="Permanent Address"
+            fields={permanentAddressFields} // 👈 Uses Permanent Config
+            section="permanentAddress"
+            values={values.permanentAddress}
+            errors={errors.permanentAddress || {}}
+            touched={touched.permanentAddress || {}}
+            onFieldChange={handleFieldChange}
+            onFieldBlur={handleFieldBlur}
+            showDivider
+          />
+        )}
+      </div>
     </FormikProvider>
   );
 });

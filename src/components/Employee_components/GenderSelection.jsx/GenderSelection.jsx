@@ -1,4 +1,4 @@
-import { Field } from "formik";
+import { Field, getIn } from "formik";
 import Asterisk from "../../../assets/Employee_asserts/SkillTest/Asterisk";
 import FormError from "../FormikError/FormError";
 import styles from "./GenderSelection.module.css";
@@ -13,6 +13,7 @@ const GenderSelection = ({
   isSubmitted,
   externalErrors = {},
   onClearFieldError,
+  name = "genderId", // Default to "genderId" for backward compatibility
 }) => {
   return (
     <div className={styles.gender_selection_form_field}>
@@ -28,7 +29,8 @@ const GenderSelection = ({
         {/* ================= OPTIONS ================= */}
         <div className={styles.gender_selection_options}>
           {genderOptions.map((option) => {
-            const isActive = Number(values.genderId) === Number(option.value);
+            const currentValue = getIn(values, name);
+            const isActive = Number(currentValue) === Number(option.value);
 
             return (
               <label
@@ -38,8 +40,8 @@ const GenderSelection = ({
                 {/* Hidden radio for accessibility */}
                 <Field
                   type="radio"
-                  name="genderId"               // ✅ FIXED
-                  value={String(option.value)}  // Formik radio expects string
+                  name={name}
+                  value={String(option.value)}
                   className={styles.gender_selection_radio}
                 />
 
@@ -50,12 +52,12 @@ const GenderSelection = ({
                     console.log("🟣 Gender selected:", option.value);
 
                     // Clear external backend error if exists
-                    if (onClearFieldError && externalErrors.genderId) {
-                      onClearFieldError("genderId");
+                    if (onClearFieldError && externalErrors[name]) {
+                      onClearFieldError(name);
                     }
 
-                    setFieldValue("genderId", Number(option.value));
-                    setFieldTouched("genderId", true, false);
+                    setFieldValue(name, Number(option.value));
+                    setFieldTouched(name, true, false);
                   }}
                 >
                   <span className={styles.gender_selection_text_with_icon}>
@@ -69,7 +71,7 @@ const GenderSelection = ({
 
         {/* ================= ERROR ================= */}
         <FormError
-          name="genderId"                     // ✅ FIXED
+          name={name}
           touched={touched}
           errors={errors}
           className={styles.gender_selection_error}
